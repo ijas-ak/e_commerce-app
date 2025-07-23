@@ -19,31 +19,35 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           leading: Icon(Icons.location_on),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Consumer<SearchProvider>(
-                builder: (context, value, child) => value.isSearching
-                    ? Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(hintText: "Search Item"),
+          title: Consumer<SearchProvider>(
+            builder: (context, value, child) => value.isSearching
+                ? SizedBox(
+                    height: 40,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: "Search Item",
+                        contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      )
-                    : Text("Kadavathur,kannur"),
-              ),
-              IconButton(
-                onPressed: () {
-                  context.read<SearchProvider>().searching();
-                },
-                icon: Consumer<SearchProvider>(
-                  builder: (context, value, child) => Icon(
-                    value.isSearching ? Icons.close : Icons.search,
-                    size: 30,
-                  ),
+                      ),
+                    ),
+                  )
+                : Text("Kadavathur, Kannur"),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                context.read<SearchProvider>().searching();
+              },
+              icon: Consumer<SearchProvider>(
+                builder: (context, value, child) => Icon(
+                  value.isSearching ? Icons.close : Icons.search,
+                  size: 30,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
         body: Column(
           children: [
