@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:e_commerce_app/constants/consts.dart';
 import 'package:e_commerce_app/view/intro_page.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -31,6 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MyColors.bgColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

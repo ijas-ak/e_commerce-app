@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/controllers/provider.dart';
 import 'package:e_commerce_app/view/intro_page.dart';
+import 'package:e_commerce_app/view/profile_page.dart';
 import 'package:e_commerce_app/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

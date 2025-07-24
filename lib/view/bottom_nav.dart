@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/view/cart_page.dart';
 import 'package:e_commerce_app/view/homepage.dart';
+import 'package:e_commerce_app/view/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -12,7 +13,7 @@ class BottomNavPage extends StatefulWidget {
 }
 
 class _BottomNavPageState extends State<BottomNavPage> {
-  List<Widget> pages = [HomePage(), CartPage()];
+  List<Widget> pages = [HomePage(), CartPage(), ProfilePage()];
   int currentIndex = 0;
 
   @override
@@ -32,6 +33,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
         tabs: [
           GButton(icon: PhosphorIconsBold.house, text: "Home"),
           GButton(icon: PhosphorIconsBold.shoppingCart, text: "Cart"),
+          GButton(icon: PhosphorIconsBold.user, text: "Profile"),
         ],
         onTabChange: (value) {
           setState(() {
