@@ -1,6 +1,10 @@
 import 'package:e_commerce_app/constants/consts.dart';
+import 'package:e_commerce_app/controllers/provider.dart';
+import 'package:e_commerce_app/model/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
+import 'package:provider/provider.dart';
+import 'package:another_flushbar/flushbar.dart';
 
 class DetailsPage extends StatelessWidget {
   final String productName;
@@ -8,6 +12,7 @@ class DetailsPage extends StatelessWidget {
   final String description;
   final String image;
   final double price;
+  final Product product;
   const DetailsPage({
     super.key,
     required this.image,
@@ -15,6 +20,7 @@ class DetailsPage extends StatelessWidget {
     required this.rating,
     required this.productName,
     required this.price,
+    required this.product,
   });
 
   @override
@@ -33,20 +39,6 @@ class DetailsPage extends StatelessWidget {
           },
         ),
         backgroundColor: Colors.transparent,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(9),
-            child: CircleAvatar(
-              backgroundColor: Colors.black,
-              child: Center(
-                child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.favorite, color: Colors.red),
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
 
       body: Column(
@@ -131,19 +123,26 @@ class DetailsPage extends StatelessWidget {
 
                 //Add to cart
                 Spacer(),
-                Container(
-                  height: 50,
-                  width: 300,
-                  decoration: BoxDecoration(
-                    color: Color(0xffB4E50D),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Add to Cart",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                GestureDetector(
+                  onTap: () {
+                    context.read<ProductProvider>().addToCart(product, context);
+                    Flushbar(message: "Added To Cart Successfully");
+                  },
+
+                  child: Container(
+                    height: 50,
+                    width: 300,
+                    decoration: BoxDecoration(
+                      color: Color(0xffB4E50D),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Add to Cart",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),

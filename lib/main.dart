@@ -1,5 +1,4 @@
 import 'package:e_commerce_app/controllers/provider.dart';
-import 'package:e_commerce_app/view/details_page.dart';
 import 'package:e_commerce_app/view/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,12 +15,17 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ProductProvider()),
-        ChangeNotifierProvider(create: (context) => SearchProvider()),
       ],
       child: MaterialApp(
         home: IntroPage(),
         debugShowCheckedModeBanner: false,
         title: "E_commerce_app",
+        theme: ThemeData(
+          textTheme: TextTheme(
+            bodyLarge: TextStyle(fontWeight: FontWeight.bold),
+            bodyMedium: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
       ),
     );
   }

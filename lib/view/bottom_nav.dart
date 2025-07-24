@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/view/cart.dart';
+import 'package:e_commerce_app/view/cart_page.dart';
 import 'package:e_commerce_app/view/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -12,7 +12,7 @@ class BottomNavPage extends StatefulWidget {
 }
 
 class _BottomNavPageState extends State<BottomNavPage> {
-  List<Widget> pages = [HomePage(), MyCart()];
+  List<Widget> pages = [HomePage(), CartPage()];
   int currentIndex = 0;
 
   @override

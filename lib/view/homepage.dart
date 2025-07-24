@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/constants/consts.dart';
 import 'package:e_commerce_app/controllers/provider.dart';
+import 'package:e_commerce_app/view/favourite_product.dart';
 import 'package:e_commerce_app/view/widgets/category_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final searchController = TextEditingController();
     Provider.of<ProductProvider>(context, listen: false).getData();
     return DefaultTabController(
       length: 4,
@@ -19,11 +21,14 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           leading: Icon(Icons.location_on),
-          title: Consumer<SearchProvider>(
+          title: Consumer<ProductProvider>(
             builder: (context, value, child) => value.isSearching
                 ? SizedBox(
                     height: 40,
                     child: TextField(
+                      autofocus: true,
+                      keyboardType: TextInputType.text,
+                      controller: searchController,
                       decoration: InputDecoration(
                         hintText: "Search Item",
                         contentPadding: EdgeInsets.symmetric(horizontal: 10),
@@ -31,6 +36,11 @@ class HomePage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
+                      onChanged: (value) {
+                        context.read<ProductProvider>().searchedProducts(
+                          searchController.text,
+                        );
+                      },
                     ),
                   )
                 : Text("Kadavathur, Kannur"),
@@ -38,14 +48,57 @@ class HomePage extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                context.read<SearchProvider>().searching();
+                context.read<ProductProvider>().searching();
               },
-              icon: Consumer<SearchProvider>(
+              icon: Consumer<ProductProvider>(
                 builder: (context, value, child) => Icon(
                   value.isSearching ? Icons.close : Icons.search,
                   size: 30,
                 ),
               ),
+            ),
+            Stack(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FavouriteProduct(),
+                      ),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.favorite,
+                    size: 35,
+                    color: Colors.black87,
+                  ),
+                ),
+                Consumer<ProductProvider>(
+                  builder: (context, value, child) =>
+                      value.favouriteList.isEmpty
+                      ? Text('')
+                      : Positioned(
+                          right: 6,
+                          top: 8,
+                          child: Container(
+                            width: 18,
+                            height: 18,
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                value.favCount.toString(),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ),
+                ),
+              ],
             ),
           ],
         ),
@@ -60,7 +113,7 @@ class HomePage extends StatelessWidget {
                 Tab(icon: Icon(Icons.local_grocery_store), text: "All"),
                 Tab(icon: Icon(LucideIcons.beef), text: "foods"),
                 Tab(icon: Icon(FontAwesomeIcons.compactDisc), text: "Beauty"),
-                Tab(icon: Icon(FontAwesomeIcons.sprayCan), text: "Fragrances"),
+                Tab(icon: Icon(Icons.bed), text: "Furnitures"),
               ],
             ),
             Expanded(
@@ -70,7 +123,7 @@ class HomePage extends StatelessWidget {
                   CategoryTab(category: 'all'),
                   CategoryTab(category: 'groceries'),
                   CategoryTab(category: 'beauty'),
-                  CategoryTab(category: 'fragrances'),
+                  CategoryTab(category: 'furniture'),
                 ],
               ),
             ),

@@ -18,13 +18,17 @@ class ProductTile extends StatelessWidget {
           padding: const EdgeInsets.all(12),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 0.65,
+            childAspectRatio: 0.55,
             crossAxisSpacing: 12,
             mainAxisSpacing: 12,
           ),
-          itemCount: value.filteredList.length,
+          itemCount: value.isSearching
+              ? value.searchedList.length
+              : value.filteredList.length,
           itemBuilder: (context, index) {
-            final product = value.filteredList[index];
+            final product = value.isSearching
+                ? value.searchedList[index]
+                : value.filteredList[index];
 
             return GestureDetector(
               onTap: () {
@@ -38,6 +42,7 @@ class ProductTile extends StatelessWidget {
                       rating: product.rating,
                       productName: product.title,
                       price: product.price,
+                      product: product,
                     ),
                   ),
                 );
@@ -48,15 +53,24 @@ class ProductTile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(18),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 6,
-                      offset: Offset(0, 4),
+                      color: Colors.black,
+                      blurRadius: 5,
+                      offset: Offset(2, 2),
                     ),
                   ],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    IconButton(
+                      onPressed: () {
+                        context.read<ProductProvider>().liked(product);
+                      },
+                      icon: Icon(
+                        Icons.favorite,
+                        color: product.isLiked ? Colors.red : Colors.grey,
+                      ),
+                    ),
                     // Product Image
                     ClipRRect(
                       borderRadius: const BorderRadius.vertical(
@@ -98,11 +112,19 @@ class ProductTile extends StatelessWidget {
                               ),
                               IconButton(
                                 onPressed: () {
-                                  // Add to cart
+                                  context.read<ProductProvider>().addToCart(
+                                    product,
+                                    context,
+                                  );
                                 },
-                                icon: const Icon(
-                                  Icons.shopping_cart_outlined,
-                                  size: 22,
+                                icon: Consumer<ProductProvider>(
+                                  builder: (context, value, child) => Icon(
+                                    Icons.shopping_cart_outlined,
+                                    color: product.isOrdered
+                                        ? Colors.blue
+                                        : Colors.grey,
+                                    size: 22,
+                                  ),
                                 ),
                                 splashRadius: 20,
                               ),

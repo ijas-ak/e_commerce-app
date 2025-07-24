@@ -5,6 +5,9 @@ class Product {
   double price;
   double rating;
   List<dynamic> image;
+  bool isOrdered;
+  int itemCount;
+  bool isLiked;
 
   Product({
     required this.title,
@@ -13,6 +16,9 @@ class Product {
     required this.price,
     required this.rating,
     required this.image,
+    this.isOrdered = false,
+    this.itemCount = 0,
+    this.isLiked = false,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
