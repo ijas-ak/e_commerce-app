@@ -1,6 +1,6 @@
 import 'package:e_commerce_app/constants/consts.dart';
 import 'package:e_commerce_app/controllers/provider.dart';
-import 'package:e_commerce_app/view/favourite_product.dart';
+import 'package:e_commerce_app/view/favourite_product_page.dart';
 import 'package:e_commerce_app/view/widgets/category_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

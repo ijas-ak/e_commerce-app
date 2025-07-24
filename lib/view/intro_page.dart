@@ -7,6 +7,20 @@ class IntroPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userController = TextEditingController();
+    void toHomePage() {
+      if (userController.text.isEmpty || userController.text.length <= 4) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("Enter Username")));
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => BottomNavPage()),
+        );
+      }
+    }
+
     return Scaffold(
       backgroundColor: Color(0xffFFEDF3),
       body: Column(
@@ -36,14 +50,24 @@ class IntroPage extends StatelessWidget {
             'Providing you the latest\nmodels of products.',
             style: GoogleFonts.lato(fontSize: 18, color: Colors.grey.shade800),
           ),
+          SizedBox(height: 40),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: TextField(
+              controller: userController,
+              decoration: InputDecoration(
+                hintText: "Enter Username",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+              ),
+            ),
+          ),
 
           //Get started button
           SizedBox(height: 200),
           GestureDetector(
-            onTap: () => Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => BottomNavPage()),
-            ),
+            onTap: toHomePage,
             child: Container(
               height: 70,
               width: 200,

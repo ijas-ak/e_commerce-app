@@ -67,10 +67,13 @@ class ProductTile extends StatelessWidget {
                         context.read<ProductProvider>().liked(product);
                       },
                       icon: Icon(
-                        Icons.favorite,
-                        color: product.isLiked ? Colors.red : Colors.grey,
+                        product.isLiked
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: product.isLiked ? Colors.red : Colors.black,
                       ),
                     ),
+
                     // Product Image
                     ClipRRect(
                       borderRadius: const BorderRadius.vertical(
@@ -123,7 +126,7 @@ class ProductTile extends StatelessWidget {
                                     color: product.isOrdered
                                         ? Colors.blue
                                         : Colors.grey,
-                                    size: 22,
+                                    size: 26,
                                   ),
                                 ),
                                 splashRadius: 20,

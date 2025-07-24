@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/controllers/provider.dart';
-import 'package:e_commerce_app/view/login_page.dart';
+import 'package:e_commerce_app/view/intro_page.dart';
+import 'package:e_commerce_app/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ProductProvider()),
       ],
       child: MaterialApp(
-        home: IntroPage(),
+        home: SplashScreen(),
         debugShowCheckedModeBanner: false,
         title: "E_commerce_app",
         theme: ThemeData(
