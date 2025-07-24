@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -20,7 +21,11 @@ class HomePage extends StatelessWidget {
         backgroundColor: MyColors.bgColor,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          leading: Icon(Icons.location_on),
+          leading: Icon(
+            Icons.local_grocery_store_sharp,
+            size: 30,
+            color: Colors.orange.shade600,
+          ),
           title: Consumer<ProductProvider>(
             builder: (context, value, child) => value.isSearching
                 ? SizedBox(
@@ -43,7 +48,14 @@ class HomePage extends StatelessWidget {
                       },
                     ),
                   )
-                : Text("Kadavathur, Kannur"),
+                : Text(
+                    "Storeeyyy!",
+                    style: GoogleFonts.bebasNeue(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 2,
+                    ),
+                  ),
           ),
           actions: [
             IconButton(
@@ -53,7 +65,7 @@ class HomePage extends StatelessWidget {
               icon: Consumer<ProductProvider>(
                 builder: (context, value, child) => Icon(
                   value.isSearching ? Icons.close : Icons.search,
-                  size: 30,
+                  size: 35,
                 ),
               ),
             ),

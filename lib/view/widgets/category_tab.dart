@@ -10,10 +10,12 @@ class CategoryTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<ProductProvider>(
-      context,
-      listen: false,
-    ).getFilteredList(category);
+    Future.microtask(() {
+      Provider.of<ProductProvider>(
+        context,
+        listen: false,
+      ).getFilteredList(category);
+    });
 
     return Padding(padding: const EdgeInsets.all(8.0), child: ProductTile());
   }
