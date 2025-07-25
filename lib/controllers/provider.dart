@@ -12,6 +12,7 @@ class ProductProvider extends ChangeNotifier {
   bool isSearching = false;
   String selectedCategory = "all";
   int favCount = 0;
+  double totalAmount = 0;
 
   //METHODS
   void getData() async {
@@ -20,6 +21,8 @@ class ProductProvider extends ChangeNotifier {
 
     for (var product in data) {
       final key = product.title;
+      final cartkey = 'cart${product.title}';
+      product.isOrdered = pref.getBool(cartkey) ?? false;
       product.isLiked = pref.getBool(key) ?? false;
     }
     allProducts = data;
@@ -52,58 +55,64 @@ class ProductProvider extends ChangeNotifier {
 
   //add to cart method
 
-  void addToCart(Product product, context) {
-    product.isOrdered = true;
+  void addToCart(Product product, context) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'cart${product.title}';
 
+    await prefs.setBool(key, true);
+    product.isOrdered = true;
     if (productCart.contains(product)) {
       product.itemCount++;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text("Already Added")));
     } else {
+      product.itemCount = 1;
       productCart.add(product);
       product.isOrdered = true;
-      product.itemCount = 1;
+      totalAmountCart();
     }
     notifyListeners();
   }
 
   //remove from cart
 
-  void removeFromCart(Product product) {
+  void removeFromCart(Product product) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'cart${product.title}';
+    await prefs.setBool(key, false);
     product.isOrdered = false;
     product.itemCount = 1;
     productCart.remove(product);
+    totalAmountCart();
     notifyListeners();
   }
 
   void itemIncreament(Product product) {
     product.itemCount++;
+    totalAmountCart();
     notifyListeners();
   }
 
   void itemdecreament(Product product) {
     if (product.itemCount > 1) {
       product.itemCount--;
+      totalAmountCart();
     } else {
       removeFromCart(product);
+      totalAmountCart();
       return;
     }
     notifyListeners();
   }
 
+  //saving liked items using sharedpreferences
   void liked(Product product) async {
     final pref = await SharedPreferences.getInstance();
     final key = product.title;
-
-    // Read old state from prefs
     bool current = pref.getBool(key) ?? false;
-
-    // Toggle and update
     bool updated = !current;
     await pref.setBool(key, updated);
-
-    // Assign to product
     product.isLiked = updated;
     addToFav(product);
     notifyListeners();
@@ -118,5 +127,13 @@ class ProductProvider extends ChangeNotifier {
       favouriteList.remove(product);
       favCount--;
     }
+  }
+
+  void totalAmountCart() {
+    totalAmount = productCart.fold<double>(
+      0,
+      (a, b) => a + (b.price * b.itemCount),
+    );
+    notifyListeners();
   }
 }

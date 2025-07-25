@@ -1,4 +1,5 @@
 class Product {
+  int id;
   String title;
   String description;
   String category;
@@ -19,6 +20,7 @@ class Product {
     this.isOrdered = false,
     this.itemCount = 0,
     this.isLiked = false,
+    required this.id,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
@@ -28,5 +30,6 @@ class Product {
     price: json["price"],
     rating: json["rating"],
     image: json["images"],
+    id: json["id"],
   );
 }

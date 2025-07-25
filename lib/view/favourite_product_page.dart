@@ -39,7 +39,7 @@ class FavouriteProduct extends StatelessWidget {
             return GridView.builder(
               itemCount: value.favouriteList.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // 2 is better for readability on mobile
+                crossAxisCount: 2,
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
                 childAspectRatio: 0.65,

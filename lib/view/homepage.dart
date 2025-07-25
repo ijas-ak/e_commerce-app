@@ -21,10 +21,9 @@ class HomePage extends StatelessWidget {
         backgroundColor: MyColors.bgColor,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          leading: Icon(
-            Icons.local_grocery_store_sharp,
-            size: 30,
-            color: Colors.orange.shade600,
+          leading: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset('images/shopify.png'),
           ),
           title: Consumer<ProductProvider>(
             builder: (context, value, child) => value.isSearching
@@ -49,7 +48,7 @@ class HomePage extends StatelessWidget {
                     ),
                   )
                 : Text(
-                    "Storeeyyy!",
+                    "Shopify!",
                     style: GoogleFonts.bebasNeue(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,

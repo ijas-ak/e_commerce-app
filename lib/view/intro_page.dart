@@ -29,31 +29,30 @@ class IntroPage extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          //image or logo
+          //logo
           Center(
-            child: Icon(
-              Icons.local_grocery_store_sharp,
-              size: 150,
-              color: Colors.orange.shade600,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset('images/shopify.png', height: 250),
             ),
           ),
           SizedBox(height: 25),
           //title
           Text(
-            "Storeeyyy!",
+            "Shopify!",
             style: GoogleFonts.bebasNeue(
               fontSize: 32,
               fontWeight: FontWeight.bold,
-              letterSpacing: 2,
+              letterSpacing: 4,
             ),
           ),
-          SizedBox(height: 25),
+          SizedBox(height: 20),
           Text(
             textAlign: TextAlign.center,
             'Providing you the latest\nmodels of products.',
             style: GoogleFonts.lato(fontSize: 18, color: Colors.grey.shade800),
           ),
-          SizedBox(height: 40),
+          SizedBox(height: 70),
           Padding(
             padding: const EdgeInsets.all(12),
             child: TextField(
