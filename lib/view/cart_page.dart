@@ -1,5 +1,5 @@
 import 'package:e_commerce_app/constants/consts.dart';
-import 'package:e_commerce_app/controllers/provider.dart';
+import 'package:e_commerce_app/controllers/product_provider.dart';
 import 'package:e_commerce_app/view/widgets/cart_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,8 +35,7 @@ class CartPage extends StatelessWidget {
                       height: 60,
                       width: 250,
                       decoration: BoxDecoration(
-                        border: Border.all(width: 2, color: Colors.black),
-                        color: Colors.green,
+                        color: Colors.black,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Center(
@@ -45,6 +44,7 @@ class CartPage extends StatelessWidget {
                           style: GoogleFonts.lato(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
                         ),
                       ),

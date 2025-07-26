@@ -1,10 +1,16 @@
-import 'package:e_commerce_app/controllers/provider.dart';
+import 'package:e_commerce_app/controllers/product_provider.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
 class ProfileProvider with ChangeNotifier {
   String username = '';
+  bool isVisible = true;
+
+  void showPass() {
+    isVisible = !isVisible;
+    notifyListeners();
+  }
 
   void getData() async {
     final pref = await SharedPreferences.getInstance();

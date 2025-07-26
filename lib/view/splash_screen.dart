@@ -1,5 +1,6 @@
 import 'dart:async';
-
+import 'package:e_commerce_app/view/bottom_nav.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:e_commerce_app/constants/consts.dart';
 import 'package:e_commerce_app/view/intro_page.dart';
 import 'package:flutter/material.dart';
@@ -20,13 +21,25 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void welcome() async {
-    Timer(
-      Duration(seconds: 4),
-      () => Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => IntroPage()),
-      ),
-    );
+    final prefs = await SharedPreferences.getInstance();
+    final isLoggedIn = prefs.getBool("logged") ?? false;
+    if (isLoggedIn) {
+      Timer(
+        Duration(seconds: 4),
+        () => Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => BottomNavPage()),
+        ),
+      );
+    } else {
+      Timer(
+        Duration(seconds: 4),
+        () => Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => IntroPage()),
+        ),
+      );
+    }
   }
 
   @override

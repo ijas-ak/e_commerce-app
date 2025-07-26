@@ -59,6 +59,12 @@ class ProfilePage extends StatelessWidget {
 
                 ElevatedButton.icon(
                   onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        content: Text("Are you sure you want to logout"),
+                      ),
+                    );
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => SplashScreen()),

@@ -1,32 +1,25 @@
-// ignore_for_file: use_build_context_synchronously
-
-import 'package:e_commerce_app/constants/consts.dart';
 import 'package:e_commerce_app/controllers/auth_provider.dart';
 import 'package:e_commerce_app/controllers/profile_provider.dart';
 import 'package:e_commerce_app/model/user_model.dart';
-import 'package:e_commerce_app/view/sign_up_page.dart';
-
+import 'package:e_commerce_app/view/intro_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
-class IntroPage extends StatelessWidget {
-  const IntroPage({super.key});
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final userController = TextEditingController();
-    final passwordController = TextEditingController();
+    final usernameController = TextEditingController();
+    final passController = TextEditingController();
     return Scaffold(
-      backgroundColor: MyColors.bgColor,
-
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("images/grocery.jpeg"),
+            image: AssetImage("images/bgimage.jpg"),
             fit: BoxFit.cover,
-            opacity: 0.3,
+            opacity: 0.6,
           ),
         ),
         child: Column(
@@ -34,9 +27,21 @@ class IntroPage extends StatelessWidget {
           children: [
             //logo
             Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset('images/shopify.png', height: 250),
+              child: Container(
+                height: 130,
+                width: 130,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black, width: 5),
+                  color: Colors.black,
+                  image: DecorationImage(
+                    image: AssetImage("images/bgimage.jpg"),
+                  ),
+                  shape: BoxShape.circle,
+                ),
+
+                child: Center(
+                  child: Image.asset('images/shopify.png', height: 80),
+                ),
               ),
             ),
             SizedBox(height: 25),
@@ -52,7 +57,7 @@ class IntroPage extends StatelessWidget {
             SizedBox(height: 20),
             Text(
               textAlign: TextAlign.center,
-              'Providing you the latest\nmodels of products.',
+              'Sign Up To Shopify.',
               style: GoogleFonts.lato(
                 fontSize: 18,
                 color: Colors.grey.shade800,
@@ -62,7 +67,7 @@ class IntroPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(12),
               child: TextField(
-                controller: userController,
+                controller: usernameController,
                 decoration: InputDecoration(
                   hintText: "Enter Username",
                   border: OutlineInputBorder(
@@ -76,7 +81,7 @@ class IntroPage extends StatelessWidget {
               child: Consumer<ProfileProvider>(
                 builder: (context, value, child) => TextField(
                   obscureText: value.isVisible,
-                  controller: passwordController,
+                  controller: passController,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
                       onPressed: () {
@@ -104,26 +109,27 @@ class IntroPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => SignUpPage()),
+                      MaterialPageRoute(builder: (context) => IntroPage()),
                     );
                   },
-                  child: Text("Sign Up"),
+                  child: Text("Already Have Account?"),
                 ),
               ),
             ),
+
             //Get started button
-            SizedBox(height: 60),
+            SizedBox(height: 70),
             GestureDetector(
               onTap: () async {
-                final prefs = await SharedPreferences.getInstance();
-                final username = userController.text.trim();
-                final password = passwordController.text.trim();
-                await prefs.setString("username", username);
-                final userAuth = context.read<UserAuth>();
-                await userAuth.getUsers(
+                final username = usernameController.text.trim();
+                final password = passController.text.trim();
+                context.read<UserAuth>().signIn(
                   User(username: username, password: password),
                 );
-                context.read<UserAuth>().login(username, password, context);
+                await Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => IntroPage()),
+                );
               },
               child: Container(
                 height: 70,
@@ -134,7 +140,7 @@ class IntroPage extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    'Sign In',
+                    'Sign Up',
                     style: GoogleFonts.poppins(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,

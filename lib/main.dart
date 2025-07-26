@@ -1,5 +1,6 @@
+import 'package:e_commerce_app/controllers/auth_provider.dart';
 import 'package:e_commerce_app/controllers/profile_provider.dart';
-import 'package:e_commerce_app/controllers/provider.dart';
+import 'package:e_commerce_app/controllers/product_provider.dart';
 import 'package:e_commerce_app/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => ProductProvider()),
         ChangeNotifierProvider(create: (context) => ProfileProvider()),
+        ChangeNotifierProvider(create: (context) => UserAuth()),
       ],
       child: MaterialApp(
         home: SplashScreen(),

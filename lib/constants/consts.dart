@@ -4,6 +4,10 @@ class ApiConstants {
   static const baseUrl = "https://dummyjson.com";
 
   static const urlEndpoint = "/products";
+
+  static const authBaseUrl = "https://688455ba745306380a380680.mockapi.io";
+
+  static const authEndPoint = "/Users";
 }
 
 class MyColors {

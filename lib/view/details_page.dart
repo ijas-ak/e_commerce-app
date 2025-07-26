@@ -1,5 +1,5 @@
 import 'package:e_commerce_app/constants/consts.dart';
-import 'package:e_commerce_app/controllers/provider.dart';
+import 'package:e_commerce_app/controllers/product_provider.dart';
 import 'package:e_commerce_app/model/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';

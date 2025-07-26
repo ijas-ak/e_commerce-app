@@ -69,6 +69,9 @@ class ProductProvider extends ChangeNotifier {
     } else {
       product.itemCount = 1;
       productCart.add(product);
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Added to Cart")));
       product.isOrdered = true;
       totalAmountCart();
     }

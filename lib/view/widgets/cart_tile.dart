@@ -1,5 +1,5 @@
 import 'package:e_commerce_app/constants/consts.dart';
-import 'package:e_commerce_app/controllers/provider.dart';
+import 'package:e_commerce_app/controllers/product_provider.dart';
 import 'package:e_commerce_app/view/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
